@@ -1,0 +1,74 @@
+.container.content {
+	margin-bottom: 2em
+}
+
+.navbar .navbar-header .navbar-brand {
+	color: black;
+	font-weight: bold
+}
+
+th.asc:AFTER {
+	content: '\2193'
+}
+
+th.desc:AFTER {
+	content: '\2191'
+}
+
+th.id {
+	width: 50px
+}
+
+th.action {
+	width: 200px
+}
+
+.heading-notop {
+	margin-top: 0
+}
+
+.removeButton {
+	color: #AA0000
+}
+
+.removeButton:HOVER {
+	color: #DD0000
+}
+
+.form-horizontal .form-group .controls label {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 7px;
+	display: inline-block;
+	padding-left: 20px;
+	vertical-align: middle;
+	font-weight: 400;
+	cursor: pointer
+}
+
+.form-horizontal .form-group .controls label input[type=radio] {
+	float: left;
+	margin-left: -20px
+}
+
+.form-horizontal .form-group .controls label+label {
+	margin-left: 10px
+}
+
+.status-table {
+	margin: 5px
+}
+
+.status-table td {
+	padding: 5px
+}
+
+.help-inline {
+	background-color: #FFDDDD;
+	padding: 0.5em 1em;
+	display: block
+}
+
+.bootstrap-timepicker .help-inline {
+	display: none
+}
