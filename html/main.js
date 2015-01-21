@@ -3,34 +3,45 @@ $(document).ready(function(){
 	console.log("hej");
 	
 	/**
-	var errorMessages = [{
-		"required":"This field is required"},
-		{"required":"This field is required",
-	}];
+	 * var errorMessages = [{ "required":"This field is required"},
+	 * {"required":"This field is required", }];
+	 * 
+	 * errorMessages["required"]
+	 * 
+	 * var json =$.parseJSON(errorMessages);
+	 * 
+	 * 
+	 * $("#userName").blur(function(){
+	 * 
+	 * 
+	 * });
+	 */
 	
-	errorMessages["required"]
-	
-	var json =$.parseJSON(errorMessages);
-
-
-	$("#userName").blur(function(){
-		
-		
-	});
-	**/
-	
-	
+	//en metod som testar  regexp värdet 
 	$.validator.addMethod("regexp", function(value, element, regx){
 		return regx.test(value);
 	}, "Invalid input");
+	
+	$.validator.addMethod("minMaxDate", function(value, element){
+	var minDate = new Date("1950/01/01");
+	var maxDate = new Date("2020/12/31");
+	var inputDate = new Date(value);
+	if(inputDate < maxDate && inputDate > minDate)
+		return true;
+	return false;
+	}, "Date must be between 01-01-1950 and 31-12-2020");
+	
 	
 	// eller skapa en för varje, med enga rules och messages. t ex
 	// $("#fullName").validate({
 	// rules:
 	// message:
-	//});
+	// });
+	
+	//jQuerry validator plugin
 	$(".jsvalidationengine").validate({
 		
+		//regler som sätts för varje input
 		rules: {
 			"fullName": {
 				required: true,
@@ -54,8 +65,7 @@ $(document).ready(function(){
 			"date" : {
 				required: true,
 				date: true,
-				min: 1950-01-01,
-				max: 2020-31-12	
+				minMaxDate: true,
 			},
 			"week": {
 				required: true
@@ -74,6 +84,7 @@ $(document).ready(function(){
 			}
 		},
 		
+		//meddelanden för varje input regel
 		messages: {
 			"fullName": {
 				required: "You must enter your full name",
@@ -94,9 +105,7 @@ $(document).ready(function(){
 					
 			},
 			"date": {
-				required: "You must set a date",
-				min: "Must be over 1950-01-01",
-				max: "Must be under 2020-31-12"
+				required: "You must set a date"
 			},
 			"week": {
 				required: "You must set a week",
@@ -117,6 +126,7 @@ $(document).ready(function(){
 			}
 		},
 		
+		//ska testas senare, för submitknapp
 		success: "Valid!",
 		submitHandler: function(){alert("Submitted!")}
 	});	
