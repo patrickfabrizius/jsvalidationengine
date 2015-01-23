@@ -1,138 +1,128 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-	<link href="bootstrap.css" type="text/css" rel="stylesheet">	
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="jquery.validate.js"></script>
-    <script type="text/javascript" src="jquery.validate.min.js"></script> 
-	<script type="text/javascript" src="bootstrap.min.js"></script>
-	<script type="text/javascript" src="main.js"></script>	
+<link href="bootstrap.css" type="text/css" rel="stylesheet">
+
+<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="jquery.validate.js"></script>
+<script type="text/javascript" src="jquery.validate.min.js"></script>
+<script src="js-webshim/minified/polyfiller.js"></script>
+<script src="modernizr-custom.js"></script>
+<script type="text/javascript" src="bootstrap.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
 </head>
 <body>
 
-<h2>Form</h2>
-
-<form class="jsvalidationengine" method="POST" action="" role="form">
-	<div class="form-group">
-		<label for="userName">User name</label>
-		<div>
-			<input 
-			type="text" 
-			id="userName"
-			name="userName" 
-			data-validation="[stringlength[10,1]]" 
-			placeholder="Enter user name">
-			<!--pattern="[a-zA-Z0-9]{1,10}"-->
+	<div class="jumbotron">
+		<h1>Easy Form</h1>
+	</div>
+	<div class="container">
+		<div class="pagination" style="border: 1px">
+			<form class="form-horizontal" id="jsvalidationengine" method="POST"
+				action="">
+				<div class="form-group">
+					<label for="userName">User name:</label> 
+					<div class="input-group">
+					<input type="text"
+						id="userName" name="userName"
+						data-validation="[stringlength[10,1]]"
+						placeholder="Enter user name" required value=""
+						class="form-control">
+					<!--pattern="[a-zA-Z0-9]{1,10}"-->
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="fullName">Real name: </label> 
+					<div class="input-group">
+					<input type="text"
+						id="fullName" name="fullName"
+						data-validation="[stringlength[30,1]]"
+						placeholder="Enter first and last name" required value=""
+						class="form-control">
+					<!--pattern="^[a-zA-Z Á-ÿ\'\- ]+$"-->
+				</div>
+				</div>
+				<div class="form-group">
+					<label for="password">Password: </label>
+					<div class="input-group">
+					<input type="password"
+						id="password" name="password"
+						data-validation="[equalsElement[password-validate]]"
+						class="form-control"> <input type="hidden"
+						name="password-validate" required value="">
+				</div>
+				</div>
+				<div class="form-group">
+					<label for="repassword">Confirm password: </label>
+					<div class="input-group">
+					<input type="password" id="repassword" name="repassword"
+						data-validation="[equalsElement[password-validate]]"
+						class="form-control"> <input type="hidden"
+						name="password-validate" required value="">
+				</div>
+				</div>
+				<div class="form-group">
+					<label for="email">Email: </label>
+					<div class="input-group">
+					<input type="text" id="email"
+						name="email" data-validation="[email]"
+						placeholder="your@email.com" required value=""
+						class="form-control">
+					<!--pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"-->
+				</div>
+				</div>
+				<div class="form-group">
+					<label for="age">Age: </label>
+					<div class="input-group">
+					<input type="number" id="age"
+						name="age" data-validation="[age]" required value=""
+						class="form-control">
+				</div>
+				</div>
+				<div class="form-group">
+					<label for="date">Date of birth: </label>
+					<div class="input-group">
+					<!-- Fungerar ej på android -->
+					<input type="date" id="date" name="date" data-validation="[date]"
+						required value="" class="form-control">
+				</div>
+				</div>
+				<div class="form-group">
+					<label for="week">Week of today's date: </label>
+					<div class="input-group">
+					<input type="week"
+						id="week" name="week" data-validation="[week]" required value=""
+						class="form-control">
+				</div>
+				</div>
+				<div class="form-group">
+					<label for="time">Time: </label>
+					<div class="input-group">
+					<input type="time" id="time"
+						name="time" data-validation="[time]" required value=""
+						class="form-control">
+				</div>
+				</div>
+				<div class="form-group">
+					<label for="dateAndTime">Set date and time: </label>
+					<div class="input-group">
+					<input type="datetime-local" id="dateAndTime" name="dateAndTime"
+						data-validation="[dateAndTime]" required value=""
+						class="form-control">
+				</div>
+				</div>
+				<div class="form-group">
+					<div>
+						<input type="submit" Value="Submit" class="btn btn-primary">
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
-	<div class="form-group">
-		<label for="name">Full name</label>
-		<div>
-			<input 
-			type="text" 
-			id="fullName"
-			name="fullName" 
-			data-validation="[stringlength[30,1]]" 
-			placeholder="Enter first and last name">
-			<!--pattern="^[a-zA-Z Á-ÿ\'\- ]+$"-->
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="name">Password</label>
-		<div>
-			<input 
-			type="password" 
-			id="password"
-			name="password" 
-			data-validation="[equalsElement[password-validate]]">
-			<input type="hidden" name="password-validate">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="name">Re-enter password</label>
-		<div>
-			<input 
-			type="password" 
-			name="password" nöö
-			data-validation="[equalsElement[password-validate]]">
-			<input type="hidden" name="password-validate">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="name">Email</label>
-		<div>
-			<input 
-			type="text" 
-			id="email"
-			name="email" 
-			data-validation="[email]" 
-			placeholder="your@email.com">
-			<!--pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"-->
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="name">Age</label>
-		<div>
-			<input 
-			type="number"
-			id="age"
-			name="age" 
-			data-validation="[age]">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="name">Date of birth</label>
-		<!-- Fungerar ej på android -->
-		<div>
-			<input 
-			type="date"
-			id="date"
-			name="date" 
-			data-validation="[date]">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="name">Week of today's date</label>
-		<div>
-			<input 
-			type="week"
-			id="week"
-			name="week" 
-			data-validation="[week]">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="name">Time</label>
-		<div>
-			<input 
-			type="time"
-			id="time"
-			name="time" 
-			data-validation="[time]">
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="name">Set date and time</label>
-		<div>
-			<input 
-			type="datetime-local"
-			id="dateAndTime"
-			name="dateAndTime" 
-			data-validation="[dateAndTime]">
-		</div>
-	</div>
-	
-	<div class="form-group">
-		<div>
-			<input type="submit" Value="Submit" class="submit">
-		</div>
-	</div>
-</form>
-
 </body>
 </html>

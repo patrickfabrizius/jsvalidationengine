@@ -17,7 +17,7 @@ $(document).ready(function(){
 	 * });
 	 */
 	
-	//en metod som testar  regexp värdet 
+	// en metod som testar regexp värdet
 	$.validator.addMethod("regexp", function(value, element, regx){
 		return regx.test(value);
 	}, "Invalid input");
@@ -29,19 +29,53 @@ $(document).ready(function(){
 	if(inputDate < maxDate && inputDate > minDate)
 		return true;
 	return false;
-	}, "Date must be between 01-01-1950 and 31-12-2020");
+	});
+
+	$.validator.addMethod("passwordMatch", function(value, element){
+	var password = $("#password").val();
+	var repassword = $("#repassword").val();
 	
+	if(password != repassword){
+	return false;	
+	}else{
+	return true;	
+	}
+	});	
 	
-	// eller skapa en för varje, med enga rules och messages. t ex
-	// $("#fullName").validate({
-	// rules:
-	// message:
-	// });
-	
-	//jQuerry validator plugin
-	$(".jsvalidationengine").validate({
+		$.validator.addMethod("passwordLength", function(value, element){
+		var minLength = 6;
+		var maxLength = 40;
+		var password = $("#password").val();
+		if(password.length >= minLength && password.length <= maxLength){
+			return true;
+		}else{
+		return false;	
+		}
 		
-		//regler som sätts för varje input
+		});
+		
+	
+	/**
+	 * $.webshims.setOptions('forms', { overrideMessages: true,
+	 * replaceValidationUI: true }); $.webshims.setOptions({ waitReady: false
+	 * });
+	 * 
+	 * 
+	 * $.webshims.validityMessages = { "messages":{ "defaultMessage": "Please
+	 * enter a valid value", "email":"Please enter an emal address",
+	 * "fullName":"Please enter your name", "password":"please enter a
+	 * password", "age":"Please enter your age", "date":"please enter a date",
+	 * "week":"Please enter current week", "dateAndTime":"Please enter date and
+	 * time", "userName":"Please enter a username" }, };
+	 * 
+	 * eller skapa en för varje, med enga rules och messages. t ex
+	 * $("#fullName").validate({ rules: message: });
+	 */
+	
+	 // jQuerry validator plugin
+	$("#jsvalidationengine").validate({
+		
+		// regler som sätts för varje input
 		rules: {
 			"fullName": {
 				required: true,
@@ -50,7 +84,12 @@ $(document).ready(function(){
 				regexp: /^[a-zA-Z Á-ÿ\'\- ]+$/
 			},
 			"password": {
-				required: true
+				required: true,
+				passwordLength: true
+			},
+			"repassword": {
+				required: true,
+				passwordMatch: true
 			},
 			"email": {
 				required: true,
@@ -78,13 +117,37 @@ $(document).ready(function(){
 			},
 			"userName": {
 				required: true,
-				minlength: 2,
+				minlength: 4,
 				maxlength: 10,
 				regexp: /[a-zA-Z0-9]{1,10}/
 			}
 		},
 		
-		//meddelanden för varje input regel
+		highlight: function(element){
+			$(element).closest('.form-group').addClass('has-error');
+		},
+		unhighlight: function(element){
+			$(element).closest('.form-group').removeClass('has-error');
+		},
+		errorClass: 'help-block',
+		errorPlacement: function(error, element){
+			if(element.parent('.input-group').length){
+			error.insertAfter(element.parent());	
+			}else{
+			error.insertAfter(element);	
+			}
+
+		},
+		
+//		errorPlacement: function(error, element){
+//			if($(element).attr("name")=="gender"){
+//				$($(element).parent)
+//			}
+//			
+//		}
+
+	
+		// meddelanden för varje input regel
 		messages: {
 			"fullName": {
 				required: "You must enter your full name",
@@ -92,8 +155,15 @@ $(document).ready(function(){
 				maxlength: "Can't be longer than 30 characters"
 			},
 			"password": {
-				required: "You must enter a password"
+				required: "You must enter a password",
+				passwordLength: "Your password can't be shorter than 6 or longer than 40"
 			},
+			
+			"repassword": {
+				required: "You must re-enter your password",
+				passwordMatch: "Your Passwords Must Match"
+			},
+
 			"email": {
 				required: "You must enter a email",
 				email: "You must enter a valid email"
@@ -105,7 +175,8 @@ $(document).ready(function(){
 					
 			},
 			"date": {
-				required: "You must set a date"
+				required: "You must set a date",
+				minMaxDate: "Date must be between 01-01-1950 and 31-12-2020"
 			},
 			"week": {
 				required: "You must set a week",
@@ -121,13 +192,18 @@ $(document).ready(function(){
 			},
 			"userName": {
 					required: "You must enter a user name",
-					minlength: "Must be at least 1 characters long",
+					minlength: "Must be at least 4 characters long",
 					maxlength: "Can't be longer than 10 characters"
 			}
+			
 		},
 		
-		//ska testas senare, för submitknapp
+		// ska testas senare, för submitknapp
 		success: "Valid!",
 		submitHandler: function(){alert("Submitted!")}
 	});	
+	
+	$.webshims.polyfill('forms');
 });
+
+
